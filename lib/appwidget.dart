@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:controle_vendas/routes.dart';
+import './routes.dart';
+import './modules/modules.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -8,12 +10,17 @@ class AppWidget extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Controle de Vendas',
-      debugShowCheckedModeBanner: false,
-      navigatorKey: Routes.mainNavigatorKey,
-      initialRoute: Routes.mainInitialRoute,
-      routes: Routes.mainRoutes,
+    return MultiProvider(
+      providers: [
+        Provider(create: (_) => UserController()),
+      ],
+      child: MaterialApp(
+        title: 'Controle de Vendas',
+        debugShowCheckedModeBanner: false,
+        navigatorKey: Routes.mainNavigatorKey,
+        initialRoute: Routes.mainInitialRoute,
+        routes: Routes.mainRoutes,
+      ),
     );
   }
 }

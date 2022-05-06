@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:controle_vendas/helpers/appstyles.dart';
-import 'package:controle_vendas/components/custom_textfield.dart';
-import 'package:controle_vendas/modules/login/controllers/login_controller.dart';
+import '../../modules.dart';
+import '../../../components/components.dart';
+import '../../../helpers/helpers.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
-          width: size.width > 850 ? size.width / 2.5 : size.width / 1.5,
+          width: size.width > 850 ? size.width / 2.5 : size.width / 1.1,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius:
@@ -36,6 +36,21 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: AppStyles.defaultPadding,
+                  ),
+                  ValueListenableBuilder<String?>(
+                    valueListenable: controller.errorLogin,
+                    builder: (context, errorLogin, _) {
+                      return errorLogin != null
+                          ? Text(
+                              errorLogin,
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          : Container();
+                    },
                   ),
                   ValueListenableBuilder<String?>(
                     valueListenable: controller.email,
@@ -62,11 +77,11 @@ class LoginScreen extends StatelessWidget {
                               suffixIcon: IconButton(
                                 icon: verSenha
                                     ? const Icon(
-                                        Icons.visibility_outlined,
+                                        Icons.visibility_off_outlined,
                                         color: Color(0xFFBBBBBB),
                                       )
                                     : const Icon(
-                                        Icons.visibility_off_outlined,
+                                        Icons.visibility_outlined,
                                         color: Color(0xFFBBBBBB),
                                       ),
                                 onPressed: () =>
@@ -89,7 +104,18 @@ class LoginScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: controller.login.value,
                           style: AppStyles.buttonStyle,
-                          child: const Text("ENTRAR"),
+                          child: ValueListenableBuilder<bool>(
+                            valueListenable: controller.loading,
+                            builder: (context, loading, _) {
+                              return loading
+                                  ? const CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation(
+                                        Colors.black,
+                                      ),
+                                    )
+                                  : const Text("ENTRAR");
+                            },
+                          ),
                         ),
                       );
                     },

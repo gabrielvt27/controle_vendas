@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../modules.dart';
+import '../../../routes.dart';
 import '../../../helpers/helpers.dart';
 
 class LoginController {
+  BuildContext context = Routes.mainNavigatorKey.currentContext!;
+
   ValueNotifier<String?> email = ValueNotifier(null);
   ValueNotifier<String?> senha = ValueNotifier(null);
   ValueNotifier<bool> verSenha = ValueNotifier(true);
+  ValueNotifier<bool> loading = ValueNotifier(false);
+  ValueNotifier<String?> errorLogin = ValueNotifier(null);
   ValueNotifier<VoidCallback?> login = ValueNotifier(null);
 
   setEmail(String? val) {
@@ -42,7 +50,24 @@ class LoginController {
     login.value = emailValid && senhaValid ? _login : null;
   }
 
-  _login() {
-    print("logar");
+  _login() async {
+    login.value = null;
+    loading.value = true;
+    errorLogin.value = null;
+
+    final user = UserModel(email: email.value, senha: senha.value);
+
+    try {
+      final resultUser = await LoginRepository().loginComEmail(user);
+
+      Provider.of<UserController>(context, listen: false).user = resultUser;
+
+      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+    } catch (e) {
+      errorLogin.value = e.toString();
+    }
+
+    login.value = _login;
+    loading.value = false;
   }
 }
