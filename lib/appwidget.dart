@@ -12,15 +12,37 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => UserController()),
+        ChangeNotifierProvider(create: (_) => UserController()),
       ],
-      child: MaterialApp(
-        title: 'Controle de Vendas',
-        debugShowCheckedModeBanner: false,
-        navigatorKey: Routes.mainNavigatorKey,
-        initialRoute: Routes.mainInitialRoute,
-        routes: Routes.mainRoutes,
+      child: Builder(
+        builder: (context) {
+          final userController = Provider.of<UserController>(context);
+          return MaterialApp(
+            title: 'Controle de Vendas',
+            debugShowCheckedModeBanner: false,
+            navigatorKey: Routes.mainNavigatorKey,
+            home:
+                userController.isLoggedIn ? const HomeScreen() : LoginScreen(),
+            routes: Routes.mainRoutes,
+          );
+        },
       ),
+    );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
+    return MaterialApp(
+      title: 'Controle de Vendas',
+      debugShowCheckedModeBanner: false,
+      navigatorKey: Routes.mainNavigatorKey,
+      home: userController.isLoggedIn ? HomeScreen() : LoginScreen(),
+      routes: Routes.mainRoutes,
     );
   }
 }

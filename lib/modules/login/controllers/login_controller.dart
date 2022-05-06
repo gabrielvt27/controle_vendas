@@ -6,8 +6,6 @@ import '../../../routes.dart';
 import '../../../helpers/helpers.dart';
 
 class LoginController {
-  BuildContext context = Routes.mainNavigatorKey.currentContext!;
-
   ValueNotifier<String?> email = ValueNotifier(null);
   ValueNotifier<String?> senha = ValueNotifier(null);
   ValueNotifier<bool> verSenha = ValueNotifier(true);
@@ -59,8 +57,10 @@ class LoginController {
 
     try {
       final resultUser = await LoginRepository().loginComEmail(user);
+      BuildContext context = Routes.mainNavigatorKey.currentContext!;
 
       Provider.of<UserController>(context, listen: false).user = resultUser;
+      Provider.of<UserController>(context, listen: false).isLoggedIn = true;
 
       Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     } catch (e) {
