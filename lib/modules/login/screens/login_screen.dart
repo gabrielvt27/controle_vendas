@@ -16,7 +16,11 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
-          width: size.width > 850 ? size.width / 2.5 : size.width / 1.1,
+          width: size.width > 850
+              ? size.width > 1350
+                  ? size.width / 3
+                  : size.width / 2
+              : size.width / 1.1,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius:

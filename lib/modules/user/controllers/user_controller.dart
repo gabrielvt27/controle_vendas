@@ -1,20 +1,34 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../modules.dart';
+import '../../../routes.dart';
 
-class UserController with ChangeNotifier {
+class UserController {
   UserModel? user;
 
   bool isLoggedIn = false;
+  bool loading = false;
 
   UserController() {
     _getCurrentUser();
   }
 
   _getCurrentUser() async {
-    await Future.delayed(const Duration(seconds: 1));
-    user = await Future.value(UserModel(email: "a"));
+    final respUser = await UserRepository().currentUser();
+    if (respUser is UserModel) {
+      user = respUser;
+      isLoggedIn = true;
+    }
+    loading = true;
+    Navigator.of(Routes.mainNavigatorKey.currentContext!)
+        .pushNamedAndRemoveUntil('/', (route) => false);
+  }
+
+  Future<void> logout() async {
+    await UserRepository().logout();
+    user = null;
     isLoggedIn = false;
-    notifyListeners();
+    Navigator.of(Routes.mainNavigatorKey.currentContext!)
+        .pushNamedAndRemoveUntil('/', (route) => false);
   }
 }
