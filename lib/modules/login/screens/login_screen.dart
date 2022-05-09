@@ -13,14 +13,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Center(
         child: SizedBox(
-          width: size.width > 850
-              ? size.width > 1350
+          width: Responsive.isMobile(context)
+              ? size.width / 1.1
+              : Responsive.isDesktop(context)
                   ? size.width / 3
-                  : size.width / 2
-              : size.width / 1.1,
+                  : size.width / 2,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius:

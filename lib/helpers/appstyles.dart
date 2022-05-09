@@ -6,10 +6,10 @@ class AppStyles {
   static double defaultBorderRadius = 6.0;
   static double defaultElevation = 8.0;
 
-  static Color primaryColor = const Color(0xFFFFDB15);
+  static Color primaryColor = const Color(0xFFffebac);
   static Color primaryColorWithOpacity =
       const Color(0xFFFFDB15).withOpacity(.8);
-  static Color secondaryColor = const Color(0xFF020301);
+  static Color secondaryColor = const Color(0xFF1D1D1D);
   static Color secondaryColorWithOpacity =
       const Color(0xFF020301).withOpacity(.8);
   static Color textColor = const Color(0xFF020301);
@@ -23,6 +23,12 @@ class AppStyles {
   static TextStyle normalTextStyle = GoogleFonts.roboto(
     color: textColor,
     fontSize: 14,
+  );
+
+  static TextStyle drawerTextStyle = GoogleFonts.roboto(
+    color: textColor,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
   );
 
   static ButtonStyle buttonStyle = ElevatedButton.styleFrom(

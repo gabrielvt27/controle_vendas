@@ -1,3 +1,4 @@
+import 'package:controle_vendas/helpers/appstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,16 @@ class AppWidget extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Controle de Vendas',
+        theme: ThemeData().copyWith(
+          scaffoldBackgroundColor: const Color(0xFFBBBBBB),
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppStyles.primaryColor,
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         navigatorKey: Routes.mainNavigatorKey,
         initialRoute: Routes.mainInitialRoute,
-        onGenerateRoute: Routes.onGenerateRoute,
+        onGenerateRoute: Routes.onGenerateRouteMain,
       ),
     );
   }
