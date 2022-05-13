@@ -1,3 +1,4 @@
+import 'package:controle_vendas/modules/user/models/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,13 +54,13 @@ class LoginController {
     loading.value = true;
     errorLogin.value = null;
 
-    final user = UserModel(email: email.value, senha: senha.value);
+    final user = UserViewModel(email: email.value, senha: senha.value);
 
     try {
       final resultUser = await LoginRepository().loginComEmail(user);
       BuildContext context = Routes.mainNavigatorKey.currentContext!;
 
-      Provider.of<UserController>(context, listen: false).user = resultUser;
+      Provider.of<UserController>(context, listen: false).user = UserModel();
       Provider.of<UserController>(context, listen: false).isLoggedIn = true;
 
       Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);

@@ -1,38 +1,31 @@
 import 'dart:convert';
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
-import '../../../helpers/helpers.dart';
 
 class UserModel {
-  final String? id;
+  final String? iduser;
   final String? email;
-  final String? senha;
-  final DateTime? createdAt;
+  final String? token;
 
   UserModel({
-    this.id,
+    this.iduser,
     this.email,
-    this.senha,
-    this.createdAt,
+    this.token,
   });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
+    result.addAll({'id': iduser});
     result.addAll({'email': email});
-    result.addAll({'senha': senha});
-    result.addAll({'createdAt': createdAt});
+    result.addAll({'token': token});
 
     return result;
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] ?? '',
+      iduser: map['iduser'].toString(),
       email: map['email'] ?? '',
-      senha: map['senha'] ?? '',
-      createdAt: map['createdAt'] ?? '',
+      token: map['token'] ?? '',
     );
   }
 
@@ -41,22 +34,20 @@ class UserModel {
   factory UserModel.fromJson(String source) =>
       UserModel.fromMap(json.decode(source));
 
-  factory UserModel.mapParseToUser(ParseUser parseUser) => UserModel(
-        id: parseUser.objectId ?? '',
-        email: parseUser.get(keyUserEmail) ?? '',
-        createdAt: parseUser.get(keyUserCreatedAt),
-      );
-
   @override
-  String toString() => 'UserModel(email: $email, senha: $senha)';
+  String toString() =>
+      'UserModel(iduser: $iduser, email: $email, token: $token)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is UserModel && other.email == email && other.senha == senha;
+    return other is UserModel &&
+        other.email == email &&
+        other.iduser == iduser &&
+        other.token == token;
   }
 
   @override
-  int get hashCode => email.hashCode ^ senha.hashCode;
+  int get hashCode => email.hashCode ^ iduser.hashCode ^ token.hashCode;
 }

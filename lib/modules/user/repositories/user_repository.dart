@@ -1,10 +1,8 @@
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
 import '../user_module.dart';
 
 class UserRepository {
   Future<UserModel?> currentUser() async {
-    final parseUser = await ParseUser.currentUser();
+    /*final parseUser = await ParseUser.currentUser();
 
     if (parseUser != null) {
       final response =
@@ -15,13 +13,13 @@ class UserRepository {
       } else {
         await parseUser.logout();
       }
-    }
+    }*/
 
     return null;
   }
 
   Future<void> logout() async {
-    final ParseUser currentUser = await ParseUser.currentUser();
-    await currentUser.logout(deleteLocalUserData: true);
+    /*final ParseUser currentUser = await ParseUser.currentUser();
+    await currentUser.logout(deleteLocalUserData: true);*/
   }
 }
