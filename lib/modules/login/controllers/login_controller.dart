@@ -1,6 +1,7 @@
 import 'package:controle_vendas/modules/user/models/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules.dart';
 import '../../../routes.dart';
@@ -54,14 +55,16 @@ class LoginController {
     loading.value = true;
     errorLogin.value = null;
 
-    final user = UserViewModel(email: email.value, senha: senha.value);
+    final user = UserViewModel(email: email.value, password: senha.value);
 
     try {
       final resultUser = await LoginRepository().loginComEmail(user);
-      BuildContext context = Routes.mainNavigatorKey.currentContext!;
+      final context = Routes.mainNavigatorKey.currentContext!;
+      final prefs = await SharedPreferences.getInstance();
 
-      Provider.of<UserController>(context, listen: false).user = UserModel();
+      Provider.of<UserController>(context, listen: false).user = resultUser;
       Provider.of<UserController>(context, listen: false).isLoggedIn = true;
+      await prefs.setString('jwt', resultUser.token!);
 
       Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     } catch (e) {

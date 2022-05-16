@@ -14,6 +14,7 @@ class LoginRepository {
                 'Content-Type': 'application/json; charset=UTF-8',
               },
               body: user.toJson());
+
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return UserModel.fromMap(json);
@@ -21,7 +22,6 @@ class LoginRepository {
         return Future.error(json["message"]);
       }
     } catch (e) {
-      print(e.toString());
       return Future.error('Erro insperado');
     }
   }

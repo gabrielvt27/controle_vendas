@@ -2,18 +2,18 @@ import 'dart:convert';
 
 class UserViewModel {
   final String? email;
-  final String? senha;
+  final String? password;
 
   UserViewModel({
     this.email,
-    this.senha,
+    this.password,
   });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
     result.addAll({'email': email});
-    result.addAll({'senha': senha});
+    result.addAll({'senha': password});
 
     return result;
   }
@@ -21,7 +21,7 @@ class UserViewModel {
   factory UserViewModel.fromMap(Map<String, dynamic> map) {
     return UserViewModel(
       email: map['email'] ?? '',
-      senha: map['senha'] ?? '',
+      password: map['senha'] ?? '',
     );
   }
 
@@ -31,7 +31,7 @@ class UserViewModel {
       UserViewModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserModel(email: $email, senha: $senha)';
+  String toString() => 'UserModel(email: $email, senha: $password)';
 
   @override
   bool operator ==(Object other) {
@@ -39,9 +39,9 @@ class UserViewModel {
 
     return other is UserViewModel &&
         other.email == email &&
-        other.senha == senha;
+        other.password == password;
   }
 
   @override
-  int get hashCode => email.hashCode ^ senha.hashCode;
+  int get hashCode => email.hashCode ^ password.hashCode;
 }
