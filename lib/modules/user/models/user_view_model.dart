@@ -13,7 +13,7 @@ class UserViewModel {
     final result = <String, dynamic>{};
 
     result.addAll({'email': email});
-    result.addAll({'senha': password});
+    result.addAll({'password': password});
 
     return result;
   }
@@ -21,7 +21,7 @@ class UserViewModel {
   factory UserViewModel.fromMap(Map<String, dynamic> map) {
     return UserViewModel(
       email: map['email'] ?? '',
-      password: map['senha'] ?? '',
+      password: map['password'] ?? '',
     );
   }
 
@@ -31,7 +31,7 @@ class UserViewModel {
       UserViewModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserModel(email: $email, senha: $password)';
+  String toString() => 'UserModel(email: $email, password: $password)';
 
   @override
   bool operator ==(Object other) {
