@@ -15,8 +15,9 @@ class Routes {
 
   static Route? onGenerateRouteMain(RouteSettings settings) {
     final userController = Provider.of<UserController>(
-        mainNavigatorKey.currentContext!,
-        listen: false);
+      mainNavigatorKey.currentContext!,
+      listen: false,
+    );
 
     // Verificar se a busca do usuário atual já foi terminada
     // caso negativo, retornar a LoadingScreen
@@ -26,27 +27,26 @@ class Routes {
 
     // Caso o usuário não esteja logado, redirecionar p/ o login
     if (!userController.isLoggedIn) {
-      return MaterialPageRoute(builder: (_) => LoginScreen());
+      return MaterialPageRoute(builder: (_) => AuthScreen());
     } else {
-      switch (settings.name) {
+      List<String> pathComponents = settings.name!.split('?');
+      switch (pathComponents[0]) {
         case '/':
         case '/home':
           return MaterialPageRoute(builder: (_) => HomeScreen());
         default:
-          return MaterialPageRoute(builder: (_) => LoginScreen());
+          return MaterialPageRoute(builder: (_) => AuthScreen());
       }
     }
   }
 
   static Route? onGenerateRouteHome(RouteSettings settings) {
+    List<String> pathComponents = settings.name!.split('?');
     Widget page;
 
-    switch (settings.name) {
+    switch (pathComponents[0]) {
       case '/dashboards':
-        page = Container(
-          color: Colors.red,
-          child: const Text('Page 1'),
-        );
+        page = const DashboardScreen();
         break;
       case '/produtos':
         page = Container(

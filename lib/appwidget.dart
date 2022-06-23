@@ -1,9 +1,10 @@
-import 'package:controle_vendas/helpers/appstyles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './routes.dart';
 import './modules/modules.dart';
+import './helpers/helpers.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => UserController()),
+        Provider(create: (_) => UserController(AuthRepository(Dio()))),
       ],
       child: MaterialApp(
         title: 'Controle de Vendas',

@@ -7,7 +7,11 @@ import '../../modules.dart';
 import '../../../routes.dart';
 import '../../../helpers/helpers.dart';
 
-class LoginController {
+class AuthController {
+  AuthRepository repository;
+
+  AuthController(this.repository);
+
   ValueNotifier<String?> email = ValueNotifier(null);
   ValueNotifier<String?> senha = ValueNotifier(null);
   ValueNotifier<bool> verSenha = ValueNotifier(true);
@@ -58,7 +62,7 @@ class LoginController {
     final user = UserViewModel(email: email.value, password: senha.value);
 
     try {
-      final resultUser = await LoginRepository().loginComEmail(user);
+      final resultUser = await repository.loginComEmail(user);
       final context = Routes.mainNavigatorKey.currentContext!;
       final prefs = await SharedPreferences.getInstance();
 

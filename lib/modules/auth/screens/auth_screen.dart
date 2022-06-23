@@ -1,13 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../modules.dart';
 import '../../../components/components.dart';
 import '../../../helpers/helpers.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class AuthScreen extends StatelessWidget {
+  AuthScreen({Key? key}) : super(key: key);
 
-  final controller = LoginController();
+  final controller = AuthController(AuthRepository(Dio()));
 
   @override
   Widget build(BuildContext context) {
