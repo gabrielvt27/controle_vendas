@@ -5,7 +5,7 @@ import './modules/modules.dart';
 import './components/components.dart';
 
 class Routes {
-  static String mainInitialRoute = '/';
+  static String mainInitialRoute = '/home';
 
   static GlobalKey<NavigatorState> mainNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -28,14 +28,24 @@ class Routes {
     // Caso o usuário não esteja logado, redirecionar p/ o login
     if (!userController.isLoggedIn) {
       return MaterialPageRoute(builder: (_) => AuthScreen());
+    } else if (userController.meliToken == null) {
+      final uriParse = Uri.parse(settings.name!);
+      if (uriParse.queryParameters.containsKey('code')) {
+        return MaterialPageRoute(
+          builder: (_) => MeliLoginGetTokenScreen(
+            code: uriParse.queryParameters['code']!,
+          ),
+        );
+      } else {
+        return MaterialPageRoute(builder: (_) => const MeliLoginScreen());
+      }
     } else {
       List<String> pathComponents = settings.name!.split('?');
       switch (pathComponents[0]) {
-        case '/':
         case '/home':
           return MaterialPageRoute(builder: (_) => HomeScreen());
         default:
-          return MaterialPageRoute(builder: (_) => AuthScreen());
+          return MaterialPageRoute(builder: (_) => const PageNotFoundScreen());
       }
     }
   }

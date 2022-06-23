@@ -26,6 +26,19 @@ class AuthRepository {
     }
   }
 
+  Future getMeliAccessToken(String code) async {
+    final response = await dio.post(
+      '${Contants.kApiRoute}/users/melitoken',
+      data: {code: code},
+    );
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      return Future.error('');
+    }
+  }
+
   Future<UserModel?> currentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');

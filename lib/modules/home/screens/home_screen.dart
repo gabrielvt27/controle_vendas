@@ -1,5 +1,6 @@
 import 'package:controle_vendas/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../modules.dart';
 import '../../../routes.dart';
@@ -12,6 +13,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Provider.of<UserController>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       appBar: Responsive.isMobile(context)
           ? AppBar(
