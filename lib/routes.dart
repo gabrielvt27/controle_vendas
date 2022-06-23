@@ -15,8 +15,9 @@ class Routes {
 
   static Route? onGenerateRouteMain(RouteSettings settings) {
     final userController = Provider.of<UserController>(
-        mainNavigatorKey.currentContext!,
-        listen: false);
+      mainNavigatorKey.currentContext!,
+      listen: false,
+    );
 
     // Verificar se a busca do usuário atual já foi terminada
     // caso negativo, retornar a LoadingScreen
