@@ -40,6 +40,9 @@ class UserController {
   Future<void> logout() async {
     user = null;
     isLoggedIn = false;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('meliToken');
+    await prefs.remove('jwt');
     Navigator.of(Routes.mainNavigatorKey.currentContext!)
         .pushNamedAndRemoveUntil('/', (route) => false);
   }
