@@ -30,7 +30,7 @@ class Routes {
     if (!userController.isLoggedIn) {
       return MaterialPageRoute(builder: (_) => AuthScreen());
     } else if (userController.meliToken == null) {
-      final uriParse = Uri.parse(settings.name!);
+      final uriParse = Uri.dataFromString(settings.name!);
       if (uriParse.queryParameters.containsKey('code')) {
         return MaterialPageRoute(
           builder: (_) => MeliLoginGetTokenScreen(
