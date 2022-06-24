@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:html';
 
 import './modules/modules.dart';
 import './components/components.dart';
@@ -30,7 +31,7 @@ class Routes {
     if (!userController.isLoggedIn) {
       return MaterialPageRoute(builder: (_) => AuthScreen());
     } else if (userController.meliToken == null) {
-      final uriParse = Uri.dataFromString(settings.name!);
+      final uriParse = Uri.dataFromString(window.location.href);
       if (uriParse.queryParameters.containsKey('code')) {
         return MaterialPageRoute(
           builder: (_) => MeliLoginGetTokenScreen(
