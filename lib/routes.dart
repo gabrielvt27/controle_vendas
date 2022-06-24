@@ -27,6 +27,7 @@ class Routes {
     }
     print(settings.name!);
     print(userController.meliToken);
+    print(window.location.href);
     // Caso o usuário não esteja logado, redirecionar p/ o login
     if (!userController.isLoggedIn) {
       return MaterialPageRoute(builder: (_) => AuthScreen());
