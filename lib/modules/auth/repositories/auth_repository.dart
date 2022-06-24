@@ -29,7 +29,9 @@ class AuthRepository {
   Future getMeliAccessToken(String code) async {
     final response = await dio.post(
       '${Contants.kApiRoute}/users/melitoken',
-      data: {code: code},
+      data: {
+        'code': code,
+      },
     );
 
     if (response.statusCode == 200) {

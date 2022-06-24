@@ -9,14 +9,9 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await launchUrl(
-              Uri.parse(Contants.kMeliRoute),
-              webOnlyWindowName: '_self',
-            );
-          },
-          child: const Text('Conectar ao Mercado Livre'),
+        child: Container(
+          color: Colors.red,
+          child: const Text('Page 1'),
         ),
       ),
     );
