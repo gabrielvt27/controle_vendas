@@ -12,7 +12,7 @@ class MeliLoginScreen extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             await launchUrl(
-              Uri.parse(Contants.kMeliRoute),
+              Uri.parse(Constants.kMeliRoute),
               webOnlyWindowName: '_self',
             );
           },

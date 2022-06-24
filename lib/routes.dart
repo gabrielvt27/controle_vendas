@@ -1,6 +1,6 @@
+import 'package:controle_vendas/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:html';
 
 import './modules/modules.dart';
 import './components/components.dart';
@@ -25,23 +25,18 @@ class Routes {
     if (!userController.loading) {
       return MaterialPageRoute(builder: (_) => const LoadingScreen());
     }
-    print(settings.name!);
-    print(userController.meliToken);
-    print(window.location.href);
+
     // Caso o usuário não esteja logado, redirecionar p/ o login
     if (!userController.isLoggedIn) {
       return MaterialPageRoute(builder: (_) => AuthScreen());
     } else if (userController.meliToken == null) {
-      final uriParse = Uri.dataFromString(window.location.href);
-      if (uriParse.queryParameters.containsKey('code')) {
-        return MaterialPageRoute(
-          builder: (_) => MeliLoginGetTokenScreen(
-            code: uriParse.queryParameters['code']!,
-          ),
-        );
-      } else {
-        return MaterialPageRoute(builder: (_) => const MeliLoginScreen());
-      }
+      return Constants.kMeliCode == ''
+          ? MaterialPageRoute(builder: (_) => const MeliLoginScreen())
+          : MaterialPageRoute(
+              builder: (_) => MeliLoginGetTokenScreen(
+                code: Constants.kMeliCode,
+              ),
+            );
     } else {
       List<String> pathComponents = settings.name!.split('?');
       switch (pathComponents[0]) {

@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:controle_vendas/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,11 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(window.location.href);
+    final uriParse = Uri.dataFromString(window.location.href);
+    if (uriParse.queryParameters.containsKey('code')) {
+      Constants.kMeliCode = uriParse.queryParameters['code']!;
+    }
+
     return MultiProvider(
       providers: [
         Provider(create: (_) => UserController(AuthRepository(Dio()))),

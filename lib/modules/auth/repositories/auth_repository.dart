@@ -12,7 +12,7 @@ class AuthRepository {
   Future<UserModel> loginComEmail(UserViewModel user) async {
     try {
       final response = await dio.post(
-        '${Contants.kApiRoute}/users/login',
+        '${Constants.kApiRoute}/users/login',
         data: user.toMap(),
       );
 
@@ -28,7 +28,7 @@ class AuthRepository {
 
   Future getMeliAccessToken(String code) async {
     final response = await dio.post(
-      '${Contants.kApiRoute}/users/melitoken',
+      '${Constants.kApiRoute}/users/melitoken',
       data: {
         'code': code,
       },
@@ -48,7 +48,7 @@ class AuthRepository {
     if (jwt != null) {
       try {
         final response = await dio.get(
-          '${Contants.kApiRoute}/users/validatetoken',
+          '${Constants.kApiRoute}/users/validatetoken',
           options: Options(headers: {
             'x-access-token': jwt,
           }),
